@@ -9,6 +9,24 @@ layouts = Acomodos de escritorio
 color-schemes = Esquemas de color
 snapshots = Copia de seguridad
 
+create-layout = Crear acomodo
+layout-name = Nombre del acomodo
+dock-icons = Iconos del dock
+show-window = Mostrar ventana
+preview = Vista previa
+layout-exists-error = Ya existe un acomodo con este nombre.
+layout-name-required = El nombre es obligatorio.
+panel-properties = Propiedades del panel
+dock-properties = Propiedades del dock
+position = Posición
+extend = Extender
+size = Tamaño
+top = Arriba
+bottom = Abajo
+left = Izquierda
+right = Derecha
+enable = Habilitar
+
 color-schemes-error = Error al cargar los esquemas de color
 import-color-scheme = Importar esquema de color
 delete-color-scheme = Eliminar esquema de color
@@ -24,10 +42,13 @@ show-more = Mostrar mas
 
 show-panel = Mostrar panel
 force-icon-buttons-in-panel = Forzar iconos en el panel
+size = Tamaño
+size-description = La altura del panel y los applets
 
 padding = Relleno
 padding-description = El relleno es el espacio entre los iconos y el borde del dock o panel.
-
+margin = Margen
+margin-description = Margen es el espacio entre el panel y los bordes de la pantalla.
 spacing = Espaciado
 spacing-description = El espacio es la distancia entre los iconos en el dock o panel.
 

@@ -25,10 +25,13 @@ show-more = さらに表示
 
 show-panel = パネルを表示
 force-icon-buttons-in-panel = 常にパネルでボタンを表示
+size = Size
+size-description = The height of the panel and applets
 
 padding = 余白
 padding-description = 内容と枠線の間の空間です。
-
+margin = Margin
+margin-description = Margin is the space between the panel and the edges of the screen.
 spacing = 間隔
 spacing-description = アイコンの間の空間です。
 

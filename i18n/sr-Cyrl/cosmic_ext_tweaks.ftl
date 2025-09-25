@@ -28,10 +28,13 @@ find-themes = Пронађи теме
 # Panel only
 show-panel = Приказ панела
 force-icon-buttons-in-panel = Натерај приказ дугмади са иконицама на панелу
+size = Size
+size-description = The height of the panel and applets
 
 padding = Пуњење
 padding-description = Пуњење је простор између садржаја и ивица дока или панела.
-
+margin = Margin
+margin-description = Margin is the space between the panel and the edges of the screen.
 spacing = Размак
 spacing-description = Размак је простор између иконица на доку или панелу.
 

@@ -1,5 +1,5 @@
-app-title = Ajustes do COSMIC
-app-description = Uma ferramenta para personalizar a sua experiência com o ambiente COSMIC.
+app-title = Ajustes do COSMIC™
+app-description = Uma ferramenta para personalizar a sua experiência com o ambiente COSMIC™.
 
 # Pages
 home = Início
@@ -26,10 +26,13 @@ show-more = Mostrar mais
 
 show-panel = Mostrar painel
 force-icon-buttons-in-panel = Forçar botões com ícones no painel
+size = Size
+size-description = The height of the panel and applets
 
 padding = Preenchimento
 padding-description = O preenchimento é o espaço entre o conteúdo e as bordas da dock ou do painel.
-
+margin = Margin
+margin-description = Margin is the space between the panel and the edges of the screen.
 spacing = Espaçamento
 spacing-description = O espaçamento é o espaço entre os ícones na dock ou no painel.
 
@@ -43,7 +46,7 @@ navigation = Navegação
 save-current-color-scheme = Salvar esquema de cores atual
 color-scheme-name = Nome do esquema de cores
 create-snapshot = Criar snapshot
-create-snapshot-description = Você está prestes a criar um snapshot. Isso salvará o estado atual da sua área de trabalho e tornará possível restaurá-lo mais tarde.
+create-snapshot-description = Você está prestes a criar um snapshot, isso irá salvar o estado atual da sua área de trabalho e tornará possível restaurá-lo mais tarde.
 restore-snapshot = Restaurar snapshot
 delete-snapshot = Excluir snapshot
 no-snapshots = Nenhum snapshot disponível
@@ -70,9 +73,9 @@ settings = Configurações
 ### Appearance
 appearance = Aparência
 theme = Tema
-match-desktop = Corresponder à área de trabalho
-dark = Escuro
-light = Claro
+match-desktop = Estilo do sistema
+dark = Estilo escuro
+light = Estilo claro
 
 # Menu
 view = Exibir

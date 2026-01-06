@@ -16,8 +16,11 @@ target/
 
 vendor/
 
-.cargo/
 .direnv/
 result*
 
 .idea
+profile.json.gz
+
+**/.venv
+**/.DS_Store

@@ -3,9 +3,8 @@ use cosmic::{Application, Element, Task, iced::Length, widget};
 use cosmic_ext_config_templates::load_template;
 use dirs::data_local_dir;
 
-use crate::app::core::icons;
-use crate::app::pages;
 use crate::app::pages::snapshots::config::SnapshotKind;
+use crate::icon_handle;
 use crate::{app::App, fl};
 
 pub mod config;
@@ -57,9 +56,9 @@ impl Snapshots {
                         .into(),
                     widget::row()
                         .push(widget::tooltip(
-                            widget::button::icon(icons::get_handle(
+                            widget::button::icon(icon_handle!(
                                 "arrow-circular-bottom-right-symbolic",
-                                14,
+                                14
                             ))
                             .class(cosmic::style::Button::Standard)
                             .on_press(Message::RestoreSnapshot(snapshot.clone())),
@@ -67,7 +66,7 @@ impl Snapshots {
                             widget::tooltip::Position::Bottom,
                         ))
                         .push(widget::tooltip(
-                            widget::button::icon(icons::get_handle("user-trash-symbolic", 14))
+                            widget::button::icon(icon_handle!("user-trash-symbolic", 14))
                                 .class(cosmic::style::Button::Destructive)
                                 .on_press(Message::DeleteSnapshot(snapshot.clone())),
                             widget::text(fl!("delete-snapshot")),
@@ -120,7 +119,7 @@ impl Snapshots {
                         .push(widget::horizontal_space())
                         .spacing(spacing.space_xxs),
                 )
-                .push(widget::text::body("Each time you open Tweaks, we save the current state of your desktop, if you ever break it, simply restore it."))
+                .push(widget::text::body(fl!("restore-info")))
                 .push_maybe(header)
                 .push(snapshots)
                 .spacing(spacing.space_xs),
@@ -148,12 +147,6 @@ impl Snapshots {
                 } else {
                     log::warn!("Snapshot does not contain a valid schema.");
                 }
-
-                tasks.push(cosmic::task::message(crate::app::Message::ColorSchemes(
-                    Box::new(pages::color_schemes::Message::SetColorScheme(
-                        snapshot.color_scheme,
-                    )),
-                )));
             }
             Message::CreateSnapshot(name, kind) => {
                 let path = data_local_dir()

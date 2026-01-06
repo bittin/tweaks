@@ -1,7 +1,11 @@
-use crate::app::pages::{self, layouts::preview::LayoutPreview};
+use crate::app::{
+    core::config::TweaksConfig,
+    pages::{self, layouts::preview::LayoutPreview},
+};
 
 use super::{context::ContextPage, dialog::DialogPage};
 use cosmic::{
+    cosmic_theme::ThemeMode,
     iced::keyboard::{Key, Modifiers},
     widget,
 };
@@ -23,9 +27,15 @@ pub enum Message {
     ToggleContextPage(ContextPage),
     ToggleContextDrawer,
     ToggleDialogPage(DialogPage),
-    AppTheme(usize),
     Key(Modifiers, Key),
     Modifiers(Modifiers),
-    SystemThemeModeChange,
+    SystemThemeModeChange(ThemeMode),
     Open(String),
+    Settings(SettingsMessage),
+}
+
+#[derive(Debug, Clone)]
+pub enum SettingsMessage {
+    AppTheme(usize),
+    ConfigUpdate(TweaksConfig),
 }

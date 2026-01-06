@@ -15,14 +15,25 @@ import-color-scheme = Importer un thème
 delete-color-scheme = Supprimer un thème
 available-color-schemes-body = Trouver et installer des thèmes
 set-color-scheme = Activer le thème
-install-color-scheme = Installer un thème
+install-color-scheme = Installer le thème
 find-color-schemes = Trouver des thèmes
 open-containing-folder = Ouvrir le dossier
 open-link = Ouvrir le lien
 installed = Installés
 available = Disponibles
 loading = Chargement...
+refresh = Refresh
 show-more = Voir plus
+no-color-schemes-installed = No color schemes installed
+no-color-schemes-found = No color schemes found
+by = By {$author}
+revert-old-color-scheme = Revert old color scheme
+
+a-z = A-Z
+most-downloaded = Most downloaded
+last-modified = Last modified
+author = Author
+search = Search
 
 show-panel = Afficher le panneau
 force-icon-buttons-in-panel = Forcer l'affichage des boutons avec des icones dans le panneau
@@ -60,6 +71,7 @@ user = Utilisateur
 
 ## Snapshots
 application-opened = Application ouvert
+restore-info = Each time you open Tweaks, we save the current state of your desktop, if you ever break it, simply restore it
 
 ## About
 about = À propos

@@ -7,10 +7,11 @@ use cosmic::{
 };
 use std::collections::{HashMap, VecDeque};
 
-use crate::app::pages::color_schemes::config::ColorScheme;
 use dialog::DialogPage;
 use flags::Flags;
 use message::Message;
+
+use crate::app::message::SettingsMessage;
 
 pub mod action;
 pub mod context;
@@ -78,6 +79,10 @@ impl Application for App {
         Cosmic::header_start(self)
     }
 
+    fn header_end(&self) -> Vec<Element<'_, Self::Message>> {
+        Cosmic::header_end(self)
+    }
+
     fn nav_model(&self) -> Option<&widget::nav_bar::Model> {
         Some(&self.cosmic.nav_model)
     }
@@ -112,11 +117,8 @@ impl Application for App {
 }
 
 impl App {
-    fn update_config(&mut self) -> Task<Message> {
-        self.color_schemes.theme_builder = ColorScheme::current_theme();
-        Task::batch(vec![cosmic::command::set_theme(
-            self.config.app_theme.theme(),
-        )])
+    fn set_theme(&mut self) -> Task<Message> {
+        cosmic::command::set_theme(self.config.app_theme.theme())
     }
 
     fn settings<'a>(&'a self) -> Element<'a, Message> {
@@ -132,7 +134,7 @@ impl App {
                     widget::settings::item::builder(crate::fl!("theme")).control(widget::dropdown(
                         &self.cosmic.app_themes,
                         Some(app_theme_selected),
-                        Message::AppTheme,
+                        |i| Message::Settings(SettingsMessage::AppTheme(i)),
                     )),
                 )
                 .into(),

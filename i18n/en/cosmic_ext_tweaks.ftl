@@ -47,7 +47,20 @@ open-link = Open link
 installed = Installed
 available = Available
 loading = Loading...
+refresh = Refresh
+refresh = Refresh
 show-more = Show more
+no-color-schemes-installed = No color schemes installed
+no-color-schemes-found = No color schemes found
+by = By {$author}
+revert-old-color-scheme = Revert old color scheme
+revert-old-color-scheme = Revert old color scheme
+
+a-z = A-Z
+most-downloaded = Most downloaded
+last-modified = Last modified
+author = Author
+search = Search
 
 ## Panel
 show-panel = Show panel
@@ -61,6 +74,8 @@ margin = Margin
 margin-description = Margin is the space between the panel and the edges of the screen.
 spacing = Spacing
 spacing-description = Spacing is the space between the icons in the dock or panel.
+border-radius = Border Radius
+border-radius-description = Border radius is the roundness of the dock or panel.
 animation-speed = Animation speed
 wait-time = Wait time
 wait-time-description = Wait time is the time it takes for the panel to hide after the mouse leaves it.
@@ -96,6 +111,7 @@ user = User
 
 ## Snapshots
 application-opened = Application opened
+restore-info = Each time you open Tweaks, we save the current state of your desktop, if you ever break it, simply restore it
 
 ## About
 about = About
@@ -117,7 +133,7 @@ light = Light
 view = View
 
 
-## Shortcuts
+## Shortcuts
 
 warning = Warning: this will override some of your existing custom shortcuts
 windows-desc = Super+Arrows to move windows. Ctrl+Alt+Arrows to navigate workspaces.

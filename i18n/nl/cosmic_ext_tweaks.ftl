@@ -22,7 +22,18 @@ open-link = Link openen
 installed = Geïnstalleerd
 available = Beschikbaar
 loading = Laden...
+refresh = Refresh
 show-more = Meer tonen
+no-color-schemes-installed = No color schemes installed
+no-color-schemes-found = No color schemes found
+by = By {$author}
+revert-old-color-scheme = Revert old color scheme
+
+a-z = A-Z
+most-downloaded = Most downloaded
+last-modified = Last modified
+author = Author
+search = Search
 
 show-panel = Paneel tonen
 force-icon-buttons-in-panel = Pictogramknoppen ipv tekstknoppen in het paneel forceren
@@ -60,6 +71,7 @@ user = Gebruiker
 
 ## Snapshots
 application-opened = Toepassing geopend
+restore-info = Each time you open Tweaks, we save the current state of your desktop, if you ever break it, simply restore it
 
 ## About
 about = Over
@@ -81,7 +93,7 @@ light = Licht
 view = Beeld
 
 
-## Shortcuts
+## Shortcuts
 
 warning = Waarschuwing: hierdoor worden al uw bestaande aangepaste sneltoetsen verwijderd
 windows-desc = Gebruik Super+Pijltjes om vensters te verplaatsen, en gebruik Ctrl+Alt+Pijltjes om tussen werkbladen te wisselen.

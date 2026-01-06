@@ -6,9 +6,8 @@ use cosmic::{
 use cosmic_panel_config::{AutoHide, CosmicPanelConfig};
 use serde::{Deserialize, Serialize};
 
-use crate::fl;
+use crate::{fl, icon};
 
-use crate::app::core::icons;
 use config::{CosmicPanelButtonConfig, IndividualConfig, Override};
 
 pub mod config;
@@ -21,6 +20,7 @@ pub struct Panel {
     pub padding: u32,
     pub margin: u16,
     pub spacing: u32,
+    pub border_radius: u32,
     pub show_panel: bool,
     pub cosmic_panel_config: CosmicPanel,
     pub cosmic_panel_config_helper: Option<Config>,
@@ -106,6 +106,10 @@ impl Default for Panel {
             .clone()
             .map(|config| config.spacing)
             .unwrap_or(0);
+        let border_radius = panel_config
+            .clone()
+            .map(|config| config.border_radius)
+            .unwrap_or(0);
         let panel_size = panel_config
             .clone()
             .map(|config| config.size)
@@ -123,8 +127,8 @@ impl Default for Panel {
             .unwrap_or(false);
         let autohide = panel_config
             .clone()
-            .map(|config| config.autohide.unwrap_or(AutoHide::default()))
-            .unwrap();
+            .map(|config| config.autohide.unwrap_or_default())
+            .unwrap_or_default();
 
         Self {
             panel_helper,
@@ -132,6 +136,7 @@ impl Default for Panel {
             padding,
             margin,
             spacing,
+            border_radius,
             show_panel,
             cosmic_panel_config,
             cosmic_panel_config_helper,
@@ -149,6 +154,7 @@ pub enum Message {
     SetPadding(u32),
     SetMargin(u16),
     SetSpacing(u32),
+    SetBorder(u32),
     ShowPanel(bool),
     ForceIcons(bool),
     SetPanelSize(i32),
@@ -166,18 +172,18 @@ impl Panel {
                 .title("Panel")
                 .add(
                     widget::settings::item::builder(fl!("show-panel"))
-                        .icon(icons::get_icon("eye-outline-symbolic", 18))
+                        .icon(icon!("eye-outline-symbolic", 18))
                         .toggler(self.show_panel, Message::ShowPanel),
                 )
                 .add(
                     widget::settings::item::builder(fl!("force-icon-buttons-in-panel"))
-                        .icon(icons::get_icon("smile-symbolic", 18))
+                        .icon(icon!("smile-symbolic", 18))
                         .toggler(self.force_icons, Message::ForceIcons),
                 )
                 .add(
                     widget::settings::item::builder(fl!("size"))
                         .description(fl!("size-description"))
-                        .icon(icons::get_icon("size-vertically-symbolic", 18))
+                        .icon(icon!("size-vertically-symbolic", 18))
                         .control(
                             widget::row()
                                 .push(
@@ -196,7 +202,7 @@ impl Panel {
                 .add(
                     widget::settings::item::builder(fl!("padding"))
                         .description(fl!("padding-description"))
-                        .icon(icons::get_icon("resize-mode-symbolic", 18))
+                        .icon(icon!("resize-mode-symbolic", 18))
                         .control(
                             widget::row()
                                 .push(widget::slider(0..=20, self.padding, Message::SetPadding))
@@ -207,7 +213,7 @@ impl Panel {
                 .add(
                     widget::settings::item::builder(fl!("margin"))
                         .description(fl!("margin-description"))
-                        .icon(icons::get_icon("object-layout-symbolic", 18))
+                        .icon(icon!("object-layout-symbolic", 18))
                         .control(
                             widget::row()
                                 .push(widget::slider(0..=20, self.margin, Message::SetMargin))
@@ -218,11 +224,26 @@ impl Panel {
                 .add(
                     widget::settings::item::builder(fl!("spacing"))
                         .description(fl!("spacing-description"))
-                        .icon(icons::get_icon("size-horizontally-symbolic", 18))
+                        .icon(icon!("size-horizontally-symbolic", 18))
                         .control(
                             widget::row()
                                 .push(widget::slider(0..=28, self.spacing, Message::SetSpacing))
                                 .push(widget::text::text(format!("{} px", self.spacing)))
+                                .spacing(spacing.space_xxs),
+                        ),
+                )
+                .add(
+                    widget::settings::item::builder(fl!("border-radius"))
+                        .description(fl!("border-radius-description"))
+                        .icon(icon!("size-horizontally-symbolic", 18))
+                        .control(
+                            widget::row()
+                                .push(widget::slider(
+                                    0..=160,
+                                    self.border_radius,
+                                    Message::SetBorder,
+                                ))
+                                .push(widget::text::text(format!("{} px", self.border_radius)))
                                 .spacing(spacing.space_xxs),
                         ),
                 )
@@ -232,7 +253,7 @@ impl Panel {
                 .add(
                     widget::settings::item::builder(fl!("wait-time"))
                         .description(fl!("wait-time-description"))
-                        .icon(icons::get_icon("size-vertically-symbolic", 18))
+                        .icon(icon!("size-vertically-symbolic", 18))
                         .control(
                             widget::row()
                                 .push(
@@ -251,7 +272,7 @@ impl Panel {
                 .add(
                     widget::settings::item::builder(fl!("transition-time"))
                         .description(fl!("transition-time-description"))
-                        .icon(icons::get_icon("size-vertically-symbolic", 18))
+                        .icon(icon!("size-vertically-symbolic", 18))
                         .control(
                             widget::row()
                                 .push(
@@ -273,7 +294,7 @@ impl Panel {
                 .add(
                     widget::settings::item::builder(fl!("handle-size"))
                         .description(fl!("handle-size-description"))
-                        .icon(icons::get_icon("size-vertically-symbolic", 18))
+                        .icon(icon!("size-vertically-symbolic", 18))
                         .control(
                             widget::row()
                                 .push(
@@ -324,6 +345,13 @@ impl Panel {
                     log::error!("Error updating panel spacing: {}", err);
                 }
             }
+            Message::SetBorder(border_radius) => {
+                self.border_radius = border_radius;
+                let update = panel_config.set_border_radius(panel_helper, self.border_radius);
+                if let Err(err) = update {
+                    log::error!("Error updating panel border: {}", err);
+                }
+            }
             Message::ForceIcons(force) => {
                 let mut configs = self.cosmic_panel_button_config.configs.clone();
                 if let Some(inner_config) = configs.get_mut("Panel") {
@@ -362,7 +390,7 @@ impl Panel {
                             if let Err(err) = update {
                                 log::error!("Error updating cosmic panel entries: {}", err);
                             } else {
-                                self.show_panel = false;
+                                self.show_panel = true;
                             }
                         }
                     }
@@ -379,7 +407,7 @@ impl Panel {
                         if let Err(err) = update {
                             log::error!("Error updating cosmic panel entries: {}", err);
                         } else {
-                            self.show_panel = true;
+                            self.show_panel = false;
                         }
                     }
                 }

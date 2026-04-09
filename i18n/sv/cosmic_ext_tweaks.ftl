@@ -1,7 +1,7 @@
 app-title = Tweaks för COSMIC™
 app-description = Ett verktyg för att anpassa din COSMIC™ skrivbordsupplevelse.
 
-# Pages
+# Sidor
 home = Hem
 dock = Docka
 panel = Panel
@@ -21,28 +21,28 @@ open-link = Öppna länk
 installed = Installerat
 available = Tillgängligt
 loading = Laddar...
-refresh = Refresh
+refresh = Uppdatera
 show-more = Visa mer
-no-color-schemes-installed = No color schemes installed
-no-color-schemes-found = No color schemes found
-by = By {$author}
-revert-old-color-scheme = Revert old color scheme
+no-color-schemes-installed = Inga färgscheman installerade
+no-color-schemes-found = Inga färgscheman hittades
+by = Av {$author}
+revert-old-color-scheme = Återställ gammalt färgschema
 
 a-z = A-Z
-most-downloaded = Most downloaded
-last-modified = Last modified
-author = Author
-search = Search
+most-downloaded = Mest nedladdade
+last-modified = Senast modifierade
+author = Upphovsman
+search = Sök
 
 show-panel = Visa panel
 force-icon-buttons-in-panel = Forcera ikonknappar i panelen
-size = Size
-size-description = The height of the panel and applets
+size = Storlek
+size-description = Höjden av Panelens och appletarna
 
 padding = Utfyllnad
 padding-description = Utfyllnad är utrymmet mellan innehållet och kanterna på dockan eller panelen.
-margin = Margin
-margin-description = Margin is the space between the panel and the edges of the screen.
+margin = Marginal
+margin-description = Marginal är utrymmet mellan panelen och skärmens kanter.
 spacing = Utfyllnad
 spacing-description = Avståndet är utrymmet mellan ikonerna i dockan eller panelen.
 
@@ -70,7 +70,7 @@ user = Användare
 
 ## Ögonblicksavbilder
 application-opened = Program öppnat
-restore-info = Each time you open Tweaks, we save the current state of your desktop, if you ever break it, simply restore it
+restore-info = Varje gång du öppnar Tweaks sparar vi skrivbordets aktuella tillstånd. Om det någonsin går sönder kan du väldigt enkelt återställa det.
 
 ## Om
 about = Om

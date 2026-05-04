@@ -2,16 +2,17 @@ use cosmic::{Element, widget};
 
 use crate::app::App;
 use crate::app::message::Message;
+use crate::app::page::Page;
 use crate::app::pages::layouts::dialog::{CreateLayoutDialog, PanelType};
 
 use super::Cosmic;
-use crate::fl;
 
 #[derive(Clone, Debug)]
 pub enum DialogPage {
     SaveCurrentColorScheme(String),
     CreateSnapshot(String),
     CreateLayout(CreateLayoutDialog),
+    ResetPage(Page),
 }
 
 impl Cosmic {
@@ -30,7 +31,7 @@ impl Cosmic {
                     widget::button::standard(fl!("cancel")).on_press(Message::DialogCancel),
                 )
                 .control(
-                    widget::column()
+                    widget::column(vec![])
                         .push(widget::text::body(fl!("color-scheme-name")))
                         .push(
                             widget::text_input("", name.as_str())
@@ -98,10 +99,10 @@ impl Cosmic {
                         widget::button::standard(fl!("cancel")).on_press(Message::DialogCancel),
                     )
                     .control(
-                        widget::column()
+                        widget::column(vec![])
                             .push(preview_view)
                             .push(
-                                widget::column()
+                                widget::column(vec![])
                                     .push(name_input)
                                     .push_maybe(error.as_ref().map(|error| {
                                         widget::text::caption(error.to_string())
@@ -109,7 +110,7 @@ impl Cosmic {
                                     }))
                                     .push(
                                         widget::scrollable(
-                                            widget::column()
+                                            widget::column(vec![])
                                                 .push(dialog.section(
                                                     PanelType::Panel,
                                                     &app.layouts.panel_model,
@@ -127,6 +128,15 @@ impl Cosmic {
                             .spacing(spacing.space_m),
                     )
             }
+            DialogPage::ResetPage(_page) => widget::dialog()
+                .title(fl!("reset-to-defaults"))
+                .body(fl!("reset-to-defaults-warning"))
+                .primary_action(
+                    widget::button::destructive(fl!("reset")).on_press(Message::DialogComplete),
+                )
+                .secondary_action(
+                    widget::button::standard(fl!("cancel")).on_press(Message::DialogCancel),
+                ),
         };
 
         Some(dialog.into())

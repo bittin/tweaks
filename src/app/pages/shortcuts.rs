@@ -3,10 +3,12 @@ use std::{collections::HashMap, io};
 use cosmic::{
     Element, Task,
     cosmic_config::{self, ConfigGet, ConfigSet},
-    iced::{alignment::Vertical, padding},
-    widget::{button, column, horizontal_space, row, text, vertical_space},
+    iced::{alignment::Horizontal, padding},
+    widget::{self, button, column, row, text},
 };
 use cosmic_settings_config::{Shortcuts, shortcuts};
+
+use crate::app::core::reset::reset_cosmic_config;
 
 pub struct ShortcutsPage {
     pub config: cosmic_config::Config,
@@ -45,6 +47,7 @@ impl ShortcutsGroup {
 #[allow(private_interfaces)]
 pub enum Message {
     ApplyShortcuts(ShortcutsGroup),
+    Reset,
 }
 
 impl ShortcutsPage {
@@ -76,20 +79,22 @@ impl ShortcutsPage {
                     error!("failed to write shortcuts config: {e}");
                 }
             }
+            Message::Reset => {
+                reset_cosmic_config("com.system76.CosmicSettings.Shortcuts");
+                *self = ShortcutsPage::new();
+            }
         }
         Task::none()
     }
 
     pub fn view<'a>(&self) -> Element<'a, Message> {
-        column()
+        column(vec![])
             .push(text::heading(fl!("warning")))
-            .push(vertical_space().height(25))
+            .push(widget::space::horizontal().height(25))
             .push(
-                column().spacing(5).push(
-                    row()
-                        .push(view_button(ShortcutsGroup::Windows))
-                        .push(view_button(ShortcutsGroup::Windows)),
-                ),
+                column(vec![])
+                    .spacing(5)
+                    .push(row(vec![]).push(view_button(ShortcutsGroup::Windows))),
             )
             .into()
     }
@@ -97,12 +102,12 @@ impl ShortcutsPage {
 
 fn view_button<'a>(shortcuts: ShortcutsGroup) -> Element<'a, Message> {
     button::custom(
-        row()
-            .align_y(Vertical::Center)
+        widget::column(vec![])
+            .align_x(Horizontal::Center)
             .padding(5)
             .push(text(shortcuts.name()))
-            .push(horizontal_space())
-            .push(text(shortcuts.desc())),
+            .push(text(shortcuts.desc()))
+            .max_width(400),
     )
     .padding(padding::all(10))
     .on_press(Message::ApplyShortcuts(shortcuts))

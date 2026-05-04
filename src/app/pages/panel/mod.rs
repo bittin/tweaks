@@ -6,7 +6,8 @@ use cosmic::{
 use cosmic_panel_config::{AutoHide, CosmicPanelConfig};
 use serde::{Deserialize, Serialize};
 
-use crate::{fl, icon};
+use crate::app::core::reset::reset_cosmic_config;
+use crate::icon;
 
 use config::{CosmicPanelButtonConfig, IndividualConfig, Override};
 
@@ -161,6 +162,7 @@ pub enum Message {
     SetWaitTime(u32),
     SetTransitionTime(u32),
     SetHandleSize(u32),
+    Reset,
 }
 
 impl Panel {
@@ -185,7 +187,7 @@ impl Panel {
                         .description(fl!("size-description"))
                         .icon(icon!("size-vertically-symbolic", 18))
                         .control(
-                            widget::row()
+                            widget::row(vec![])
                                 .push(
                                     widget::slider(
                                         16..=112,
@@ -204,7 +206,7 @@ impl Panel {
                         .description(fl!("padding-description"))
                         .icon(icon!("resize-mode-symbolic", 18))
                         .control(
-                            widget::row()
+                            widget::row(vec![])
                                 .push(widget::slider(0..=20, self.padding, Message::SetPadding))
                                 .push(widget::text::text(format!("{} px", self.padding)))
                                 .spacing(spacing.space_xxs),
@@ -215,7 +217,7 @@ impl Panel {
                         .description(fl!("margin-description"))
                         .icon(icon!("object-layout-symbolic", 18))
                         .control(
-                            widget::row()
+                            widget::row(vec![])
                                 .push(widget::slider(0..=20, self.margin, Message::SetMargin))
                                 .push(widget::text::text(format!("{} px", self.margin)))
                                 .spacing(spacing.space_xxs),
@@ -226,7 +228,7 @@ impl Panel {
                         .description(fl!("spacing-description"))
                         .icon(icon!("size-horizontally-symbolic", 18))
                         .control(
-                            widget::row()
+                            widget::row(vec![])
                                 .push(widget::slider(0..=28, self.spacing, Message::SetSpacing))
                                 .push(widget::text::text(format!("{} px", self.spacing)))
                                 .spacing(spacing.space_xxs),
@@ -237,7 +239,7 @@ impl Panel {
                         .description(fl!("border-radius-description"))
                         .icon(icon!("size-horizontally-symbolic", 18))
                         .control(
-                            widget::row()
+                            widget::row(vec![])
                                 .push(widget::slider(
                                     0..=160,
                                     self.border_radius,
@@ -255,7 +257,7 @@ impl Panel {
                         .description(fl!("wait-time-description"))
                         .icon(icon!("size-vertically-symbolic", 18))
                         .control(
-                            widget::row()
+                            widget::row(vec![])
                                 .push(
                                     widget::slider(
                                         0..=4000,
@@ -274,7 +276,7 @@ impl Panel {
                         .description(fl!("transition-time-description"))
                         .icon(icon!("size-vertically-symbolic", 18))
                         .control(
-                            widget::row()
+                            widget::row(vec![])
                                 .push(
                                     widget::slider(
                                         0..=4000,
@@ -296,7 +298,7 @@ impl Panel {
                         .description(fl!("handle-size-description"))
                         .icon(icon!("size-vertically-symbolic", 18))
                         .control(
-                            widget::row()
+                            widget::row(vec![])
                                 .push(
                                     widget::slider(
                                         4..=32,
@@ -316,6 +318,12 @@ impl Panel {
     }
 
     pub fn update(&mut self, message: Message) -> Task<crate::app::message::Message> {
+        if let Message::Reset = message {
+            reset_cosmic_config("com.system76.CosmicPanel.Panel");
+            *self = Panel::default();
+            return Task::none();
+        }
+
         let Some(panel_helper) = &self.panel_helper else {
             return cosmic::Task::none();
         };
@@ -443,6 +451,7 @@ impl Panel {
                     log::error!("Error updating panel handle size: {}", err);
                 }
             }
+            Message::Reset => unreachable!(),
         }
         Task::none()
     }

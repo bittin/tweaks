@@ -19,7 +19,6 @@ use crate::app::pages::{
     self, color_schemes::ColorSchemes, dock::Dock, layouts::Layouts, panel::Panel,
     shortcuts::ShortcutsPage, snapshots::Snapshots,
 };
-use crate::fl;
 
 impl Cosmic {
     pub fn init(core: Core, flags: Flags) -> (App, app::Task<Message>) {
@@ -42,7 +41,7 @@ impl Cosmic {
         let about = About::default()
             .name(fl!("app-title"))
             .icon(widget::icon::from_name(App::APP_ID))
-            .version("0.2.1")
+            .version("0.2.2")
             .author("Eduardo Flores")
             .license("GPL-3.0-only")
             .links([

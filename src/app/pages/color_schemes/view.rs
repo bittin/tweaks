@@ -12,6 +12,7 @@ use crate::{
     },
     icon_handle,
 };
+use cosmic::widget;
 use cosmic::{
     self, Apply, Element,
     iced::widget::pick_list,
@@ -189,6 +190,7 @@ impl ColorSchemes {
                 row(vec![])
                     .align_y(Vertical::Center)
                     .push(dark_mode)
+                    .push(widget::space::horizontal())
                     .push(
                         button::standard(fl!("save-current-color-scheme"))
                             .trailing_icon(icon_handle!("arrow-into-box-symbolic", 16))
@@ -208,6 +210,7 @@ impl ColorSchemes {
                 row(vec![])
                     .align_y(Vertical::Center)
                     .push(dark_mode)
+                    .push(widget::space::horizontal())
                     .push(match self.status {
                         Status::Idle => button::standard(fl!("refresh"))
                             .on_press(Message::FetchAvailableColorSchemes),
@@ -231,14 +234,34 @@ impl ColorSchemes {
     }
 
     fn installed<'a>(
-        &self,
+        &'a self,
         key: ColorSchemeKey,
         color_scheme: &'a ColorScheme,
         _selected: bool,
         spacing: &cosmic::cosmic_theme::Spacing,
         item_width: usize,
     ) -> Element<'a, super::Message> {
-        let theme = &color_scheme.theme;
+        let Some(theme) = self.themes.get(&color_scheme.id) else {
+            return mouse_area(
+                column(vec![])
+                    .push(
+                        row(vec![])
+                            .push(space::horizontal())
+                            .push(text(&color_scheme.name))
+                            .push(space::horizontal())
+                            .padding(spacing.space_xxs),
+                    )
+                    .push(
+                        row(vec![]).push(
+                            container(text(fl!("navigation")))
+                                .padding(spacing.space_xxs)
+                                .width(90.0)
+                                .height(Length::Fill),
+                        ),
+                    ),
+            )
+            .into();
+        };
 
         mouse_area(
             column(vec![])
@@ -291,14 +314,34 @@ impl ColorSchemes {
     }
 
     fn available<'a>(
-        &self,
+        &'a self,
         key: ColorSchemeKey,
         color_scheme: &'a ColorScheme,
         _selected: bool,
         spacing: &cosmic::cosmic_theme::Spacing,
         item_width: usize,
     ) -> Element<'a, Message> {
-        let theme = &color_scheme.theme;
+        let Some(theme) = self.themes.get(&color_scheme.id) else {
+            return mouse_area(
+                column(vec![])
+                    .push(
+                        row(vec![])
+                            .push(space::horizontal())
+                            .push(text(&color_scheme.name))
+                            .push(space::horizontal())
+                            .padding(spacing.space_xxs),
+                    )
+                    .push(
+                        row(vec![]).push(
+                            container(text(fl!("navigation")))
+                                .padding(spacing.space_xxs)
+                                .width(90.0)
+                                .height(Length::Fill),
+                        ),
+                    ),
+            )
+            .into();
+        };
 
         mouse_area(
             column(vec![])
